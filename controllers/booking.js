@@ -112,3 +112,17 @@ exports.deleteBooking = async (req, res) => {
     });
   }
 };
+exports.getMyBookings = async (req, res, next) => {
+  try {
+    const bookings = await Booking.find({ user: req.user.id })
+      .populate('campground', 'name location');
+
+    res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings
+    });
+  } catch (err) {
+    next(err);
+  }
+};
