@@ -22,4 +22,8 @@ router.route("/:id")
 
 router.get('/me', protect, getMyBookings);
 
+router.put('/:id', protect, updateBooking);
+
+router.delete('/:id', protect, deleteBooking);
+
 module.exports = router;
