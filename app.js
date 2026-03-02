@@ -26,3 +26,5 @@ app.get("/api/v1/protected", protect, (req, res) => {
 const campgroundRoutes = require("./routes/campground");
 
 app.use("/api/v1/campgrounds", campgroundRoutes);
+const bookingRoutes = require("./routes/booking");
+app.use("/api/v1/bookings", bookingRoutes);
