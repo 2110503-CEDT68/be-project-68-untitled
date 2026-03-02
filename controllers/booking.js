@@ -204,3 +204,18 @@ exports.deleteBooking = async (req, res, next) => {
     next(err);
   }
 };
+exports.getAllBookings = async (req, res, next) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('user', 'name email')
+      .populate('campground', 'name location');
+
+    res.status(200).json({
+      success: true,
+      count: bookings.length,
+      data: bookings
+    });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -3,27 +3,30 @@ const {
   createBooking,
   getMyBookings,
   updateBooking,
-  deleteBooking
+  deleteBooking,
+  getAllBookings
 } = require("../controllers/booking");
 
-const { protect } = require("../middleware/auth");
+const { protect, authorize } = require("../middleware/auth");
 
 const router = express.Router();
 
+// ทุก route ต้อง login ก่อน
 router.use(protect);
 
-router.route("/")
-  .post(createBooking)
-  .get(getMyBookings);
+// Admin ดู booking ทั้งหมด
+router.get("/", authorize("admin"), getAllBookings);
 
-router.route("/:id")
-  .put(updateBooking)
-  .delete(deleteBooking);
+// User ดู booking ตัวเอง
+router.get("/me", getMyBookings);
 
-router.get('/me', protect, getMyBookings);
+// สร้าง booking
+router.post("/", createBooking);
 
-router.put('/:id', protect, updateBooking);
+// แก้ไข booking (owner หรือ admin)
+router.put("/:id", updateBooking);
 
-router.delete('/:id', protect, deleteBooking);
+// ลบ booking (owner หรือ admin)
+router.delete("/:id", deleteBooking);
 
 module.exports = router;
