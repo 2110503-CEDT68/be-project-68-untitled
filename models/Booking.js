@@ -18,7 +18,7 @@ const BookingSchema = new mongoose.Schema({
   nights: {
     type: Number,
     required: true,
-    max: 3   // จำกัด 3 คืน
+    max: 3  
   },
   createdAt: {
     type: Date,

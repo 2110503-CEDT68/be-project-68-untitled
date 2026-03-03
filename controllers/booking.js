@@ -1,6 +1,4 @@
 const Booking = require("../models/Booking");
-
-// ✅ Create booking
 exports.createBooking = async (req, res) => {
   try {
     if (req.body.nights > 3) {
@@ -27,7 +25,6 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-// ✅ Get my bookings
 exports.getMyBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user.id })
@@ -47,7 +44,6 @@ exports.getMyBookings = async (req, res) => {
   }
 };
 
-// ✅ Update my booking
 exports.updateBooking = async (req, res) => {
   try {
     let booking = await Booking.findById(req.params.id);
@@ -82,7 +78,6 @@ exports.updateBooking = async (req, res) => {
   }
 };
 
-// ✅ Delete my booking
 exports.deleteBooking = async (req, res) => {
   try {
     const booking = await Booking.findById(req.params.id);
@@ -182,7 +177,6 @@ exports.deleteBooking = async (req, res, next) => {
       });
     }
 
-    // ลบได้เฉพาะเจ้าของ หรือ admin
     if (
       booking.user.toString() !== req.user.id &&
       req.user.role !== 'admin'
